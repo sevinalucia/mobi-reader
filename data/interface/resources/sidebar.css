@@ -1,0 +1,28 @@
+.sidebar[state="hide"] {
+	display: none;
+}
+
+.sidebar {
+	line-height: 40px !important;
+}
+
+.sidebar table {
+	border: 0;
+  padding: 0;
+	width: 100%;
+	height: 100%;
+  margin: auto;
+  border-spacing: 1px;
+  table-layout: fixed;
+	background-color: transparent;
+}
+
+.sidebar table tr td {
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+	user-select: none;
+	text-align: center;
+	background-color: transparent;
+	border: solid 1px rgba(0,0,0,0.05);
+}
