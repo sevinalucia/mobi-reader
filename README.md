@@ -8,7 +8,7 @@ Note 2: this add-on uses an open-source JavaScript library called mobi.js to ren
 You can install this app as a PWA on your mobile device, moreover, it is available as a browser extension as-well-as a web application:
 
 Chrome: https://chrome.google.com/webstore/detail/mobi-reader/jinidhfimoamcgohkmjdadnhbbdlmokn  
-Edge:  
+Edge: https://microsoftedge.microsoft.com/addons/detail/hnlidllpecohilngbcinhpgnaebeemno  
 Firefox: https://addons.mozilla.org/en-US/firefox/addon/mobi-reader/  
 Opera: https://addons.opera.com/en/extensions/details/mobi-reader/  
 Webapp & PWA: https://webbrowsertools.com/mobi-reader/  
