@@ -51,20 +51,20 @@ html, body {
   left: 0;
   right: 0;
   bottom: 0;
-	color: #777;
-	margin: auto;
-	height: 52px;
-	display: flex;
-	padding: 10px 0;
-	font-size: 12px;
-	font-weight: 100;
-	max-width: 500px;
-	line-height: 18px;
-	text-align: center;
+  color: #555;
+  margin: auto;
+  height: 52px;
+  display: flex;
+  padding: 10px 0;
+  font-size: 12px;
+  font-weight: 100;
+  max-width: 600px;
+  line-height: 18px;
+  text-align: center;
   position: absolute;
-	align-items: center;
-	justify-content: center;
-	font-family: arial,sans-serif;
+  align-items: center;
+  font-family: monospace;
+  justify-content: center;
 }
 
 .container[state='hide'] div[empty] {
@@ -74,20 +74,20 @@ html, body {
 #prev, #next {
 	bottom: 0;
 	color: #666;
-	width: 64px;
+	width: 105px;
 	height: 100%;
 	opacity: 0.1;
 	display: flex;
 	position: fixed;
-	min-width: 64px;
-	max-width: 64px;
 	cursor: pointer;
 	font-size: 48px;
+	min-width: 105px;
+	max-width: 105px;
 	background: grey;
 	font-weight: bold;
 	user-select: none;
 	text-align: center;
-	z-index: 2147483646;
+	z-index: 2147483645;
 	align-items: center;
 	justify-content: center;
 	transition: 300ms ease all;
@@ -136,7 +136,7 @@ html, body {
 }
 
 #toggle[state="show"] {
-	top: 260px;
+	top: 264px;
 	right: 32px;
 }
 
