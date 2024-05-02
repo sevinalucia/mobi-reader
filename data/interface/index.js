@@ -24,7 +24,9 @@ var background = {
           "method": id,
           "data": data,
           "path": "interface-to-background"
-        }); 
+        }, function () {
+          return chrome.runtime.lastError;
+        });
       }
     }
   },
@@ -42,7 +44,7 @@ var background = {
   },
   "listener": function (e) {
     if (e) {
-      for (var id in background.message) {
+      for (let id in background.message) {
         if (background.message[id]) {
           if ((typeof background.message[id]) === "function") {
             if (e.path === "background-to-interface") {
@@ -63,6 +65,9 @@ var config = {
   "timeout": {},
   "result": null,
   "relocated": false,
+  "reload": function () {
+    document.location.reload();
+  },
   "keyup": function (e) {
     if ((e.keyCode || e.which) === 37) config.action.left();
     if ((e.keyCode || e.which) === 39) config.action.right();
@@ -96,7 +101,7 @@ var config = {
       if (config.port.name === "win") {
         if (config.resize.timeout) window.clearTimeout(config.resize.timeout);
         config.resize.timeout = window.setTimeout(async function () {
-          var current = await chrome.windows.getCurrent();
+          const current = await chrome.windows.getCurrent();
           /*  */
           config.storage.write("interface.size", {
             "top": current.top,
@@ -143,7 +148,7 @@ var config = {
     "write": function (id, data) {
       if (id) {
         if (data !== '' && data !== null && data !== undefined) {
-          var tmp = {};
+          let tmp = {};
           tmp[id] = data;
           config.storage.local[id] = data;
           chrome.storage.local.set(tmp, function () {});
@@ -199,7 +204,7 @@ var config = {
       document.querySelector(".toolbar").setAttribute("toggle", config.reader.toggle);
       document.querySelector(".container").setAttribute("state", config.reader.toggle);
       /*  */
-      var mobileview = document.querySelector("link[href='resources/mobileview.css']");
+      let mobileview = document.querySelector("link[href='resources/mobileview.css']");
       if (!mobileview) {
         mobileview = document.createElement("link");
         mobileview.setAttribute("rel", "stylesheet");
@@ -214,7 +219,7 @@ var config = {
     "name": '',
     "connect": function () {
       config.port.name = "webapp";
-      var context = document.documentElement.getAttribute("context");
+      const context = document.documentElement.getAttribute("context");
       /*  */
       if (chrome.runtime) {
         if (chrome.runtime.connect) {
@@ -272,18 +277,18 @@ var config = {
       document.documentElement.setAttribute("color", config.reader.theme.color);
       /*  */
       if (config.renderer.getAttribute("empty") === null) {
-        var height  = {};
-        var footer = document.querySelector(".footer");
-        var toolbar = document.querySelector(".toolbar");
-        var container = document.querySelector(".container");
-        var width = parseInt(window.getComputedStyle(document.documentElement).width);
+        const height  = {};
+        const footer = document.querySelector(".footer");
+        const toolbar = document.querySelector(".toolbar");
+        const container = document.querySelector(".container");
+        const width = parseInt(window.getComputedStyle(document.documentElement).width);
         /*  */
         height.f = window.getComputedStyle(footer).height;
         height.t = window.getComputedStyle(toolbar).height;
         height.c = window.getComputedStyle(container).height;
         /*  */
-        var state = container.getAttribute("state");
-        var render = container.getAttribute("render") !== null;
+        const state = container.getAttribute("state");
+        const render = container.getAttribute("render") !== null;
         /*  */
         height.r = "calc(100vh" + " - " + height.t + " - " + height.f + " - " + (state === "hide" ? (width < 600 ? "60px" : "16px") : (render ? "20px" : "9px")) + ')';
         /*  */
@@ -310,23 +315,23 @@ var config = {
   },
   "action": {
     "slide": function (e) {
-      var height = config.renderer.scrollHeight;
+      const height = config.renderer.scrollHeight;
       config.renderer.scrollTop = Math.floor(height * (e.target.value / 100));
       /*  */
       config.action.relocated();
     },
     "left": function () {
-      var min = 0;
-      var scrolltop = config.renderer.scrollTop;
-      var height = parseInt(window.getComputedStyle(config.renderer).height);
+      const min = 0;
+      const scrolltop = config.renderer.scrollTop;
+      const height = parseInt(window.getComputedStyle(config.renderer).height);
       config.renderer.scrollTop = (scrolltop - height) < min ? min : scrolltop - height + 42;
       /*  */
       config.action.relocated();
     },
     "right": function () {
-      var max = config.renderer.scrollHeight;
-      var scrolltop = config.renderer.scrollTop;
-      var height = parseInt(window.getComputedStyle(config.renderer).height);
+      const max = config.renderer.scrollHeight;
+      const scrolltop = config.renderer.scrollTop;
+      const height = parseInt(window.getComputedStyle(config.renderer).height);
       config.renderer.scrollTop = (scrolltop + height) > max ? max : scrolltop + height - 42;
       /*  */
       config.action.relocated();
@@ -347,10 +352,10 @@ var config = {
       if (config.renderer.scrollHeight) {
         if (config.renderer.parentNode.scrollHeight) {
           if (config.renderer.parentNode.scrollHeight) {
-            var total = config.renderer.scrollHeight / config.renderer.parentNode.scrollHeight - 1;
+            let total = config.renderer.scrollHeight / config.renderer.parentNode.scrollHeight - 1;
             if (total) {
-              var percent = config.renderer.scrollTop / config.renderer.scrollHeight;
-              var current = total * percent + 1;
+              let percent = config.renderer.scrollTop / config.renderer.scrollHeight;
+              let current = total * percent + 1;
               /*  */
               percent = Math.floor(current) === Math.floor(total) ? 100 : Math.round(percent * 100);
               config.status.textContent = "Page " + Math.floor(current) + '/' + Math.floor(total) + ' :: ' + percent + '%';
@@ -364,10 +369,7 @@ var config = {
 };
 
 config.port.connect();
-
-background.receive("reload", function () {
-  document.location.reload();
-});
+background.receive("reload", config.reload);
 
 window.addEventListener("load", config.load, false);
 document.addEventListener("keyup", config.keyup, false);

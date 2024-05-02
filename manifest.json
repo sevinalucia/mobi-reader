@@ -1,11 +1,9 @@
 {
-  "version": "0.1.4",
+  "version": "0.1.5",
   "name": "MOBI Reader",
   "manifest_version": 3,
   "offline_enabled": true,
-  "short_name": "mobi-reader",
   "host_permissions": ["*://*/*"],
-  "permissions": ["storage", "contextMenus"],
   "homepage_url": "https://mybrowseraddon.com/mobi-reader.html",
   "description": "View MOBI documents right in your browser in a stand-alone popup window.",
   "commands": {
@@ -14,6 +12,10 @@
   "background": {
     "service_worker": "background.js"
   },
+  "permissions": [
+    "storage", 
+    "contextMenus"
+  ],
   "action": {
     "default_title": "MOBI Reader",
     "default_icon": {
