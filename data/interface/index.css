@@ -101,7 +101,7 @@ html, body {
 }
 
 #prev {left: 0}
-#next {right: 0}
+#next {right: 22px}
 
 #prev:hover, #next:hover {
 	opacity: 1.0 !important;
@@ -167,19 +167,28 @@ html[context="webapp"] #ebook[empty] {
 	background-size: unset;
 }
 
-@-moz-document url-prefix() {
-  #toggle {
-    font-size: 12px;
-    font-weight: normal;
-    font-family: monaco, "andale mono", "lucida console", "courier new", monospace;
-  }
-}
-
 @media print {
+	html,	body, #ebook {
+		overflow: visible !important;
+	}
+	html[color] .content {
+		background-color: #ffffff !important;
+	}
+	html[color] #ebook {
+		color: #333333 !important;
+	}
+	html[color] #ebook font {
+		color: inherit !important;
+	}
 	#prev, #next, #toggle, .toolbar, .footer {
 		display: none !important;
 	}
 	.content, .container, #ebook {
+		margin: 0 !important;
 		border: 0 !important;
+		padding: 0 !important;
+    height: 100% !important;
+		display: block !important;
+    max-height: none !important;
 	}
 }
